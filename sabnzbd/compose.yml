@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  sabnzbd:
+    driver: local
 services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -9,9 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/sabnzbd:/config
+      - sabnzbd:/config
       - /mnt/media:/media #optional
-      - /mnt/shared:/shared #optional
     ports:
       - 8080:8080
     restart: unless-stopped

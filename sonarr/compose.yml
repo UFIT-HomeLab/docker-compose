@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  sonarr:
+    driver: local
 services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -9,9 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/sonarr/data:/config
+      - sonarr:/config
       - /mnt/media:/media #optional
-      - /mnt/shared:/shared #optional
     ports:
       - 8989:8989
     restart: unless-stopped

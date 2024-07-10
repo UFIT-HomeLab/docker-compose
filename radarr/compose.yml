@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  radarr:
+    driver: local
 services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -9,9 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/radarr/data:/config
+      - radarr:/config
       - /mnt/media:/media #optional
-      - /mnt/shared:/shared #optional
     ports:
       - 7878:7878
     restart: unless-stopped
