@@ -1,0 +1,19 @@
+---
+volumes:
+  bazarr:
+    driver: local
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - bazarr:/config
+      - /mnt/media:/media #optional
+      - /mnt/shared:/shared #optional
+    ports:
+      - 6767:6767
+    restart: unless-stopped

@@ -1,0 +1,18 @@
+---
+volumes:
+  audiobookshelf:
+    driver: local
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    ports:
+      - 13378:80
+    volumes:
+      - audiobookshelf:/config
+      - /mnt/media:/media #optional
+      - /mnt/shared:/shared #optional
+    restart: unless-stopped
+    environment:
+      - user=1000:1000
+      - group=1000:1000
