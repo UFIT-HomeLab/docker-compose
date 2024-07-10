@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  plex:
+    driver: local
 services:
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -11,7 +13,7 @@ services:
       - TZ=America/New_York
       - VERSION=docker
     volumes:
-      - /opt/plex/data:/config
+      - plex:/config
       - /mnt/media:/media #optional
     devices:
       - /dev/dri:/dev/dri

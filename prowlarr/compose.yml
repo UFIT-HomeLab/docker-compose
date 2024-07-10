@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  prowlarr:
+    driver: local
 services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -9,7 +11,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/prowlarr/data:/config
+      - prowlarr:/config
     ports:
       - 9696:9696
     restart: unless-stopped

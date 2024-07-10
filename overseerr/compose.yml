@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  overseerr:
+    driver: local
 services:
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
@@ -9,9 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/overseerr/data:/config
+      - overseerr:/config
       - /mnt/media:/media #optional
-      - /mnt/shared:/shared #optional
     ports:
       - 5055:5055
     restart: unless-stopped
