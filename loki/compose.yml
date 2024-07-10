@@ -5,8 +5,7 @@ services:
     image: grafana/loki:latest
     container_name: loki
     volumes:
-      - /opt/loki/config:/home/loki/config
+      - ./loki-config.yml:/etc/loki/loki-config.yaml
     ports:
       - 3100:3100
-    command: -config.file=/home/loki/config/config.yml
     restart: unless-stopped

@@ -1,5 +1,7 @@
 ---
-version: "3"
+volumes:
+  lidarr:
+    driver: local
 services:
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
@@ -9,9 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /opt/lidarr/data:/config
+      - lidarr:/config
       - /mnt/media:/media #optional
-      - /mnt/shared:/shared #optional
     ports:
       - 8686:8686
     restart: unless-stopped
