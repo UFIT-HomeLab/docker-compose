@@ -7,7 +7,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - ${SONARR_CONFIG_DIR:-/opt/docker/sonarr/data}:/config
+      - ${SONARR_CONFIG_DIR:-/opt/docker/sonarr/config}:/config
       - ${MEDIA_DIR:-/mnt/media}:/media #optional
     ports:
       - 8989:8989

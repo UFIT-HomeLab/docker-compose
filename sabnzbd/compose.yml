@@ -1,7 +1,3 @@
----
-volumes:
-  sabnzbd:
-    driver: local
 services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -11,8 +7,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - sabnzbd:/config
-      - /mnt/media:/media #optional
+      - ${SABNZBD_CONFIG_DIR:-/opt/docker/sabnzbd/config}:/config
+      - ${MEDIA_DIR:-/mnt/media}:/media #optional
     ports:
       - 8080:8080
     restart: unless-stopped
