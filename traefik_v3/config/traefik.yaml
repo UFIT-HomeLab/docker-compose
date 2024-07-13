@@ -1,0 +1,77 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+log:
+  level: ERROR
+  format: common
+  filePath: /var/log/traefik/traefik.log
+
+accessLog:
+  format: common
+  filePath: /var/log/traefik/traefik.log
+  bufferingSize: 100
+
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+
+  websecure:
+    address: :443
+
+certificatesResolvers:
+  le_staging:
+    acme:
+      email: youremail@email.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+
+  le_production:
+    acme:
+      email: youremail@email.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "8.8.8.8:53"
+
+  zerossl:
+    acme:
+      caServer: https://acme.zerossl.com/v2/DV90
+      email: youremail@email.com
+      storage: /etc/traefik/certs/acme.json
+      dnsChallenge:
+        provider: cloudflare
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"
+      eab:
+        kid: abc123xyz
+        hmacEncoded: abc123xzy
+
+serversTransport:
+  insecureSkipVerify: true
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    directory: /etc/traefik
+    watch: true
