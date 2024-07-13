@@ -1,0 +1,18 @@
+http:
+  routers:
+    service_name:
+      entryPoints:
+        - "https"
+      rule: "Host(`service.example.com`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: service_name
+
+  services:
+    service_name:
+      loadBalancer:
+        servers:
+          - url: "https://example.local.com:1234"
+        passHostHeader: true
